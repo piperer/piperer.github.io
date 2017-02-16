@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <meta charset='utf-8' />
+    <title>Heritage buildings in Chennai</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.31.0/mapbox-gl.css' rel='stylesheet' />
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='map'></div>
+    <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoibWFkb25uYXQiLCJhIjoiY2lna205djYxMDB3bnUxbHpidWVwdjFhNiJ9.X8raU1mDalHO4aqt5RNI2g'; //
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/madonnat/ciz6om60p00072snzgvicr7ra' //
+    });
+    map.on('click', function(e) {
+  var features = map.queryRenderedFeatures(e.point, {
+    layers: ['heritage-layer(1)'] 
+  });
+
+  if (!features.length) {
+    return;
+  }
+
+  var feature = features[0];
+
+  var popup = new mapboxgl.Popup({ offset: [0, -15] })
+    .setLngLat(feature.geometry.coordinates)
+    .setHTML('<h3>' + feature.properties.NAME_HERIT + '</h3>')
+    .setLngLat(feature.geometry.coordinates)
+    .addTo(map);
+});
+    </script>
+  </body>
+</html>
